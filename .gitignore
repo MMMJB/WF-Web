@@ -6,3 +6,4 @@ application.py
 requirements.txt
 ebignore
 .idea
+flask_session
