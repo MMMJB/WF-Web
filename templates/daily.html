@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Flip | Daily</title>
+    <meta description="Welcome to Word Flip, a tile-flipping, word-hunting, stress-inducing, vocabulary-stretching game for hours of fun.">
+
+    <meta property="og:title" content="Word Flip | Daily">
+    <meta property="og:description" content="Play the Word Flip daily level!">
+    <meta property="og:site_name" content="Word Flip">
+    <meta property="og:image" content="https://wordflip.net/static/ASSETS/wf-tile.png">
+    <meta property="og:url" content="https://wordflip.net">
+
+    <link rel="stylesheet" href="/static/CSS/daily.css">
+    <link rel="icon" type="image/x-icon" href="/static/ASSETS/LOGOS/logo-square-16.png">
+
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&family=Roboto&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&family=Roboto&display=swap">
+
+    <script src="/static/JS/libs/seedrandom.js"></script>
+    <script src="/static/JS/daily.js" defer></script>
+</head>
+<body>
+    <div id="header">
+        <button class="button home"></button>
+    </div>
+    <div id="top">
+        <div class="timer">
+            <span>New daily in: </span>
+            <div class="time">
+                <span class="hours">00</span>
+                <span class="divider">:</span>
+                <span class="minutes">00</span>
+            </div>
+        </div>
+        <div class="board-display"></div>
+    </div>
+    <div id="bottom">
+        <div class="menu leaderboard wood">
+            <div class="content leaderboard">
+                <div class="header leaderboard">Leaderboard</div>
+                <table class="table leaderboard">
+                    <tbody>
+                        <tr class="no-content"><td>There aren't any scores on here... Be the first!</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

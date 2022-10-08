@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src *; style-src * 'unsafe-inline'; font-src *; frame-src 'self' *.google.com; script-src 'self' *.google.com *.facebook.net" />
+    <link rel="icon" type="image/x-icon" href="/static/ASSETS/LOGOS/logo-square-16.png">
+    <title>Word Flip | Home</title>
+    <meta description="Play Word Flip, an addictive online word game for free!">
+
+    <meta property="og:title" content="Word Flip | Home">
+    <meta property="og:description" content="Play Word Flip, an addictive online word game for free!">
+    <meta property="og:site_name" content="Word Flip">
+    <meta property="og:image" content="https://wordflip.net/static/ASSETS/wf-tile.png">
+    <meta property="og:url" content="https://wordflip.net">
+
+    <link rel="stylesheet" href="/static/CSS/home.css">
+    <script src="/static/JS/libs/jtw-decode.js"></script>
+    <script src="/static/JS/home.js" defer></script>
+    <script async defer src="https://accounts.google.com/gsi/client"></script>
+    <script defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+</head>
+<body>
+    <div id="w-error">
+        <div class="w-error container">
+            <img src="/static/ASSETS/wf-tile.png" alt="Word Flip Tile" class="w-error icon-container">
+            <span class="w-error title bold">Oh my...</span>
+            <p class="w-error description">You’ve got quite a sizable screen! Unfortunately, some of the styles on this website do not function consistently with girthy window sizes.</p>
+            <button class="w-error continue bold">I don't care, let me in!</button>
+        </div>
+    </div>
+    <div id="user-menu" class="hidden">
+        <div id="user-options" class="wood" data-loggedIn="false">
+            <div class="content n-loggedIn bold">
+                <span class="login-title">You aren't logged in!</span>
+                <div class="google login-button"></div>
+                <span class="login-divider">- or -</span>
+                <div class="fb login-button-container">
+                    <div class="fb login-button bold">
+                        <img src="https://static.xx.fbcdn.net/rsrc.php/v3/y3/r/U7MAWJlE6hZ.png" alt="FB Logo" class="fb login-icon">
+                        <span class="fb login-text">Continue with Facebook</span>
+                    </div>
+                </div>
+            </div>
+            <div class="content loggedIn">
+                <div class="loggedIn top">
+                    <div class="login-title loggedIn">
+                        <span>Welcome,&nbsp;</span>
+                        <span class="bold">User</span>
+                    </div>
+                    <div class="login-subtext loggedIn">
+                        <span>Logged in as&nbsp;</span>
+                        <span class="bold">User User</span>
+                        <span class="logout-icon"><img src="/static/ASSETS/logout.svg" alt="Logout" title="Log Out"></span>
+                    </div>
+                    <button class="login-nusername">
+                        <span class="prompt-text">Change Username</span>
+                        <div class="enter-un">
+                            <input class="enter-text" type="text" minlength=3 maxlength=11/>
+                            <div class="enter-btn submit">&#8594;</div>
+                            <span class="error" title="">⚠️
+                                <div class="error-popup"></div>
+                            </span>
+                        </div>
+                    </button>
+                </div>
+                <div class="loggedIn bottom">
+                    <div class="data-header bold">
+                        <span>High</span>
+                        <span>Plays</span>
+                    </div>
+                    <table class="userData">
+                        <tr>
+                            <th>30s</th>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                        <tr class="divider horizontal"></tr>
+                        <tr>
+                            <th>1m</th>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                        <tr class="divider horizontal"></tr>
+                        <tr>
+                            <th>2m</th>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="user-options-pulldown"></div>
+        </div>
+    </div>
+    <div id="header">
+        <button class="settings button"></button>
+        <div id="announcer" class="hidden"></div>
+        <button class="account button"></button>
+    </div>
+    <div id="icon-container"></div>
+    <div id="menu">
+        <button class="play button wood bold"><div class="play decoration"></div></button>
+        <div id="play-options" class="wood">
+            <div class="content">
+                <button class="option timed"></button>
+                <button class="option daily"></button>
+                <div class="timed-options">
+                    <button id="thirty" data-value="30000"></button>
+                    <button id="one" data-value="60000"></button>
+                    <button id="two" data-value="120000"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span id="privacy-policy">Review the Word Flip privacy policy&nbsp;<a class="bold" href="/privacy" title="Word Flip Privacy Policy">here</a>.</span>
+</body>
+</html>

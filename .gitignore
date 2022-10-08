@@ -1,0 +1,8 @@
+venv
+key.pem
+cert.pem
+.env
+application.py
+requirements.txt
+ebignore
+.idea

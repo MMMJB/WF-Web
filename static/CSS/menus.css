@@ -1,0 +1,342 @@
+#pause-menu.hidden, #settings-menu.hidden, #finish.hidden, #tutorial.hidden {
+    display: none;
+}
+
+#pause-menu, #finish {
+    position: absolute;
+    z-index: 999;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#finish > .menu {
+    aspect-ratio: 4 / 5;
+    max-width: 40rem;
+}
+
+#finish > .menu > .content {
+    height: 80%;
+    width: 75%;
+}
+
+@keyframes slide-in {
+    0% { transform: translateY(-100vh) }
+    100% { transform: translateY(0) }
+}
+
+@keyframes blur-in {
+    0% { -webkit-backdrop-filter: blur(0px); backdrop-filter: blur(0px); background-color: rgba(255, 255, 255, 0) }
+    100% { -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px); background-color: rgba(255, 255, 255, .3) }
+}
+
+#pause-menu:not(.hidden) > .menu, #settings-menu:not(.hidden) > .menu, #finish:not(.hidden) > .menu {
+    animation: slide-in 500ms ease-out forwards;
+}
+
+#pause-menu:not(.hidden), #settings-menu:not(.hidden), #finish:not(.hidden) {
+    animation: blur-in 500ms ease-out forwards;
+}
+
+.menu {
+    width: 75%;
+    max-width: 60rem;
+    aspect-ratio: 5 / 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: calc(var(--border-rad) * 2);
+    box-shadow:
+        -4px -4px 4px inset rgba(0, 0, 0, .25),
+        4px 4px 4px inset rgba(0, 0, 0, .25),
+        0px 4px 4px rgba(0, 0, 0, .25);
+}
+
+.menu > .content {
+    width: 80%;
+    height: 75%;
+    border-radius: var(--border-rad);
+    display: flex;
+    flex-direction: column;
+    padding: calc(var(--gap) * 2);
+    padding-bottom: 0px;
+    box-shadow: 
+        -4px 4px 4px rgba(0, 0, 0, .25),
+        4px 4px 4px rgba(0, 0, 0, .25),
+        0px -4px 4px rgba(0, 0, 0, .25),
+        4px -4px 4px inset rgba(0, 0, 0, .1),
+        -4px -4px 4px inset rgba(0, 0, 0, .1);
+}
+
+#pause-menu > .menu {
+    max-width: 40rem !important;
+    max-height: 30rem;
+}
+
+#pause-menu > .menu > .content > .menu-title {
+    width: 100%;
+    height: 30%;
+    background: url("../ASSETS/TEXT/paused-text.svg") no-repeat center;
+    background-size: contain;
+}
+
+#pause-menu > .menu > .content > .menu-options {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    gap: calc(var(--gap) * 2);
+}
+
+.menu-options > *:not(.resume) {
+    width: 50%;
+}
+
+.menu-options > * {
+    position: relative;
+    width: 75%;
+    background-size: contain;
+}
+
+.menu-options > .restart {
+    background-image: url("../ASSETS/restart.png");
+}
+
+.menu-options > .resume {
+    background-image: url("../ASSETS/resume.svg");
+    width: 90%;
+}
+
+.menu-options > .home {
+    background-image: url("../ASSETS/home.png");
+}
+
+#finish > .menu > .content > .menu-title {
+    width: 100%;
+    height: 15%;
+    background: url("../ASSETS/TEXT/finished-text.svg") no-repeat center;
+    background-size: contain;
+}
+
+#finish > .menu > .content > .menu-content {
+    width: 100%;
+    height: 60%;
+}
+
+.item-title {
+    width: 50%;
+    height: 10%;
+    background-size: contain;
+}
+
+.item-title.sc {
+    background: url("../ASSETS/TEXT/score-text.svg") no-repeat center;
+}
+
+.item-title.words {
+    background: url("../ASSETS/TEXT/words-text.svg") no-repeat center;
+}
+
+#finish[data-high="1"] > .menu > .content > .menu-content > .item-value.sc::after {
+    content: 'new best!';
+    font-size: 25%;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    text-align: center;
+    left: calc(110% + 10px);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50%;
+    height: 50%;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+#finish[data-high="1"] > .menu > .content > .menu-content > .item-value.sc::before {
+    content: '';
+    position: absolute;
+    left: 110%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 10px solid transparent;
+    border-right: 10px solid rgba(0, 0, 0, .5);
+    border-bottom: 10px solid transparent;
+}
+
+.item-value {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 40%;
+    width: max-content;
+    font-size: min(10vw, 6em);
+    font-weight: bold;
+    margin-left: 10%;
+    color: white;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, .25);
+}
+
+#finish > .menu > .content > .menu-options {
+    width: 100%;
+    height: 25%;
+    display: flex;
+    align-items: center;
+    gap: 50%;
+}
+
+#finish > .menu > .content > .menu-options > .button {
+    aspect-ratio: 1;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+
+#tutorial {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, .75);
+    z-index: 999;
+    gap: 10px;
+}
+
+#tutorial-pages {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+#tutorial-page-select {
+    height: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.tutorial-page-select-button {
+    height: 85%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: #898989;
+    cursor: pointer;
+}
+
+.tutorial-page-select-button.selected {
+    height: 100%;
+    background-color: white;
+}
+
+#pages {
+    height: 100%;
+    aspect-ratio: 1;
+    background-color: white;
+    border-radius: calc(var(--border-rad) / 2);
+    display: grid;
+    place-items: center;
+    box-shadow:
+        4px 4px 4px inset rgba(0, 0, 0, .25),
+        -4px -4px 4px inset rgba(0, 0, 0, .25)
+}
+
+#page-container {
+    height: 95%;
+    aspect-ratio: 1;
+    border-radius: calc(var(--border-rad) / 4);
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    gap: 20%;
+}
+
+.page {
+    position: relative;
+    width: 80%;
+    height: 80%;
+    --left: 200%;
+    left: var(--left);
+    transition: left 250ms ease-out;
+}
+
+.page-control {
+    height: 100%;
+    aspect-ratio: 1 / 10;
+    background: url("../ASSETS/chevron-large.svg") no-repeat center;
+    background-size: contain;
+}
+
+.page-control.left {
+    transform: rotateY(180deg);
+}
+
+.page-control.hidden {
+    opacity: 0;
+}
+
+#tutorial-page-description {
+    aspect-ratio: 4 / 1;
+    height: 10%;
+    font-weight: bold;
+    border-radius: calc(var(--border-rad) / 2);
+    padding: 0px 15px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-family: Raleway, monospace;
+    box-shadow:
+        4px 4px 4px inset rgba(0, 0, 0, .25),
+        -4px -4px 4px inset rgba(0, 0, 0, .25);
+    font-size: min(1.5em, 3vw);
+}
+
+#exit-tutorial {
+    position: absolute;
+    left: 5%;
+    top: 5%;
+    width: 3em;
+    height: 3em;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: white;
+    font-family: Raleway;
+    font-weight: bold;
+    transition: transform 200ms ease-out;
+}
+
+
+
+@media screen and (orientation: landscape) {
+    #pause-menu > .menu {
+        height: 75%;
+    }
+}
+
+@media (hover: hover) {
+    .menu-options > *:hover {
+        transform: scale(1.15);
+    }
+
+    #exit-tutorial:hover {
+        transform: scale(1.25);
+    }
+}

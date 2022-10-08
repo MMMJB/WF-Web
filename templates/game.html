@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Word Flip | Game</title>
+        <meta description="Welcome to Word Flip, a tile-flipping, word-hunting, stress-inducing, vocabulary-stretching game for hours of fun.">
+
+        <meta property="og:title" content="Word Flip | Game">
+        <meta property="og:description" content="Play Word Flip, an addictive online word game for free!">
+        <meta property="og:site_name" content="Word Flip">
+        <meta property="og:image" content="https://wordflip.net/static/ASSETS/wf-tile.png">
+        <meta property="og:url" content="https://wordflip.net">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="icon" type="image/x-icon" href="/static/ASSETS/LOGOS/logo-square-16.png">
+        <link rel="stylesheet" href="/static/CSS/game.css">
+        <link rel="stylesheet" href="/static/CSS/menus.css">
+        <script src="/static/JS/solutions.js"></script>
+        <script src="/static/JS/libs/seedrandom.js"></script>
+        <script src="/static/JS/animations.js" defer></script>
+        <script src="/static/JS/script.js" defer></script>
+    </head>
+    <body>
+        <div id="tutorial" class="hidden">
+            <button id="exit-tutorial">X</button>
+            <div id="tutorial-pages">
+                <div class="page-control left hidden"></div>
+                <div id="pages" class="wood">
+                    <div id="page-container">
+                        <img class="page" src="./static/ASSETS/TUTORIALS/tutorial-1.gif" alt="">
+                        <img class="page" src="./static/ASSETS/TUTORIALS/tutorial-2.png" alt="">
+                        <img class="page" src="./static/ASSETS/TUTORIALS/tutorial-3.gif" alt="">
+                        <img class="page" src="./static/ASSETS/TUTORIALS/tutorial-4.gif" alt="">
+                        <img class="page" src="./static/ASSETS/TUTORIALS/tutorial-5.png" alt="">
+                    </div>
+                </div>
+                <div class="page-control right"></div>
+            </div>
+            <p id="tutorial-page-description" class="wood">Click and hold on a tile, then drag over nearby tiles to form words!</p>
+            <div id="tutorial-page-select">
+                <div class="tutorial-page-select-button selected"></div>
+                <div class="tutorial-page-select-button"></div>
+                <div class="tutorial-page-select-button"></div>
+                <div class="tutorial-page-select-button"></div>
+                <div class="tutorial-page-select-button"></div>
+            </div>
+        </div>
+        <div id="start">
+            <span class="start-text"></span>
+        </div>
+        <div id="pause-menu" class="hidden">
+            <div class="menu wood">
+                <div class="content">
+                    <div class="menu-title"></div>
+                    <div class="menu-options">
+                        <div class="icon restart"></div>
+                        <div class="icon resume"></div>
+                        <div class="icon home"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="finish" class="hidden" data-high="0">
+            <div class="menu wood">
+                <div class="content">
+                    <div class="menu-title"></div>
+                    <div class="menu-content">
+                        <div class="item-title sc"></div>
+                        <div class="item-value sc"></div>
+                        <div class="item-title words"></div>
+                        <div class="item-value words"></div>
+                    </div>
+                    <div class="menu-options">
+                        <div class="button restart"></div>
+                        <div class="button home"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="top">
+            <div class="menu-item wood left">
+                <div class="content">
+                    <div class="icon pause"></div>
+                </div>
+            </div>
+            <div class="menu-item wood center">
+                <div class="content">
+                    <div class="score-title"></div>
+                    <span class="score">0</span>
+                    <div id="temp-scores">
+                        <span class="base"></span>
+                        <span class="bonus"></span>
+                        <span id="announce">all clear!</span>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item wood right">
+                <div class="content">
+                    <div class="icon help"></div>
+                </div>
+            </div>
+        </div>
+        <div id="bottom">
+            <div id="container">
+                <div id="timer" class="wood"></div>
+                <div id="game-board"></div>
+            </div>
+        </div>
+        <span id="n-logged-in" class="hidden">Log in to save your highscores!</span>
+    </body>
+</html>

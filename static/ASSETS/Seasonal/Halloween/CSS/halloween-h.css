@@ -1,0 +1,62 @@
+html {
+    background: #10272f no-repeat center;
+    background-image: linear-gradient(rgba(255, 255, 255, .25), rgba(0, 0, 0, .5)), url("../ASSETS/sky.jpg");
+    background-size: cover;
+}
+
+#header > .button {
+    background-color: rgba(255, 255, 255, .25);
+
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.button.play {
+    transform-style: preserve-3d;
+    box-shadow: none;
+    background-image: none;
+    background-color: #67308F;
+}
+
+.button.play::after {
+    filter: brightness(3) hue-rotate(250deg);
+}
+
+.play.decoration {
+    position: relative;
+    width: 200%;
+    height: 100%;
+    background: url("../ASSETS/logo-decoration.svg") no-repeat center;
+    background-size: contain;
+    translate: -25% 0 -1px;
+    animation: rotate 3s linear infinite;
+    transition: transform 500ms ease-out;
+}
+
+@keyframes rotate {
+    0% { rotate: 0deg; }
+    25% { rotate: 5deg; }
+    50% { rotate: 0deg; }
+    75% { rotate: -5deg; }
+    100% { rotate: 0deg; }
+}
+
+.play.button.open > .play.decoration {
+    animation: unset;
+    transform: rotate(-90deg);
+}
+
+#icon-container {
+    background-image: url("../ASSETS/logo.png");
+    position: relative;
+    background-size: contain;
+}
+
+#icon-container::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(rgba(0, 0, 0, .3), transparent 70%);
+    z-index: -1;
+}
