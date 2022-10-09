@@ -56,6 +56,14 @@ document.querySelectorAll(".home").forEach(e => e.onclick = home);
 
 document.querySelector(".pause").onmousedown = handlePause;
 document.querySelector(".pause").onmouseup = handlePause;
+window.onblur = () => {
+    if (![...document.querySelectorAll("#tutorial, #start, #pause-menu, #finish")].every(
+        e => e.classList.contains("hidden")
+    )) return;
+
+    paused = true;
+    pause.classList.remove("hidden");
+};
 
 function endGame(sc, words, cancel) {
     function getCookie(cookie) {
@@ -78,19 +86,23 @@ function endGame(sc, words, cancel) {
             let xmlHttp = new XMLHttpRequest();
             xmlHttp.onreadystatechange = function() {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-                    if (JSON.parse(xmlHttp.responseText).status !== "failure") {
-                        document.getElementById("finish").dataset.high = 1;
+                    if (!DAILY) {
+                        if (JSON.parse(xmlHttp.responseText).status !== "failure") {
+                            document.getElementById("finish").dataset.high = 1;
+                        }
+                        document.cookie=`ud=${JSON.parse(xmlHttp.responseText).cookie}`
+                    } else {
+                        document.querySelector(".daily-result").innerText = xmlHttp.responseText;
                     }
-                    document.cookie=`ud=${JSON.parse(xmlHttp.responseText).cookie}`
-                } else if (xmlHttp.status.toString()[0] == "4") console.error("Something went wrong.", xmlHttp.status);
+                } else if (xmlHttp.status.toString()[0] == "4") console.error(xmlHttp.responseText, xmlHttp.status);
             }
-            xmlHttp.open("POST", `https://wordflip.net/api/v1/game/verify?mode=${new URLSearchParams(window.location.search).get("mode")}&score=${sc}&words=${words.join(";")}`, true);
+            xmlHttp.open("POST", `https://wordflip.net/api/v1/game/verify?mode=${GAME_LENGTH}&daily=${DAILY}&score=${sc}&words=${words.join(";")}`, true);
             xmlHttp.setRequestHeader("Authorization", `${btoa(unescape(encodeURIComponent(getCookie("ses"))))}`)
             xmlHttp.send(null);
         } catch(error) {
             console.log(error);
         }
-    }
+    } else document.querySelector(".daily-result").innerText = "Log in to submit your score!";
 
     cancel();
 

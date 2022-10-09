@@ -319,7 +319,7 @@ input {
 }
 
 #user-menu.hidden {
-    transform: translateY(-100%);
+    transform: translateY(calc(-100% - 4px));
     transition: background-color 500ms 700ms ease-out, transform 0s 1.2s;
     background-color: transparent;
 }
@@ -550,8 +550,9 @@ input {
     border-radius: 50vw;
     font-size: 1.5em;
     border: 2px solid white;
-    scale: 1;
     transform: translateX(-1px);
+    width: 100%;
+    max-width: 1.25em;
 }
 
 .error {

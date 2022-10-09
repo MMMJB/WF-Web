@@ -10,17 +10,16 @@ if (new Date().getMonth() == 9) {
 
 
 const table = document.querySelector("table.table.leaderboard > tbody");
-const MAX_TBL_ROWS = 10;
 
-var board = [], tableValues = [], cMinutes, cHours, endTime, ps;
+var board = [], tableValues = [], cMinutes, cHours, endTime, ps, day;
 const BOARD_SIZE = 4;
 const NUM_VOWELS = 6;
 
 async function getDailies() {
     const d = await fetch("/static/dailies.json").then(r => r.text());
 
-    const start = 1665205200000;
-    const day = Math.floor((Date.now() - start) / 86400000);
+    const start = 1665291600000;
+    day = Math.floor((Date.now() - start) / 86400000);
 
     endTime = start + ((day + 1) * 86400000);
 
@@ -91,13 +90,16 @@ function generateBoard(seed = ps) {
 }
 
 function generateTiles() {
-    const container = document.querySelector(".board-display");
+    const container = document.createElement("div");
+    container.className = "board-display";
 
     board.forEach(t => {
         container.innerHTML += `
             <div class="tile wood flipped"></div>
         `
     })
+
+    document.getElementById("top").appendChild(container);
 
     let i = 0;
     const tiles = document.querySelectorAll(".tile");
@@ -127,17 +129,48 @@ function generateTiles() {
 }
 
 function initiate() {
-    for (let i = 0; i < (tableValues.length>MAX_TBL_ROWS?MAX_TBL_ROWS:tableValues.length); i++) {
-        table.innerHTML += `
-            <tr class="table-row leaderboard">
-                <td class="table-cell leaderboard placement "data-num="${i + 1}"></td>
-                <td class="table-cell leaderboard score">${tableValues[i].score.toLocaleString()}</td>
-                <td class="table-cell leaderboard user">${tableValues[i].user}</td>
-            </tr>
-        `;
-    }
+    try {
+        function getCookie(cookie) {
+            let ret;
 
-    if (tableValues.length == 0) table.classList.add("empty");
+            document.cookie.split("; ").forEach(c => {
+                let split = c.split("=");
+                let val = split.slice(1).join("=")
+
+                if (split[0] == cookie) ret = val
+            })
+
+            return ret;
+        }
+
+        let xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                tableValues = [...JSON.parse(xmlHttp.responseText)];
+                tableValues.sort((a, b) => b.score - a.score)
+
+                for (let i = 0; i < tableValues.length; i++) {
+                    table.innerHTML += `
+                        <tr class="table-row leaderboard">
+                            <td class="table-cell leaderboard placement "data-num="${i + 1}"></td>
+                            <td class="table-cell leaderboard score">${tableValues[i].score.toLocaleString()}</td>
+                            <td class="table-cell leaderboard user">${tableValues[i].username}</td>
+                        </tr>
+                    `;
+                }
+
+                if (tableValues.length == 0) table.classList.add("empty");
+            } else if (xmlHttp.status == 400) {
+                table.classList.add("empty");
+                document.querySelector(".no-content").innerText = xmlHttp.responseText;
+            }
+        }
+        xmlHttp.open("GET", "https://wordflip.net/api/v1/leaderboard", true);
+        xmlHttp.setRequestHeader("Authorization", `${btoa(unescape(encodeURIComponent(getCookie("ses"))))}`)
+        xmlHttp.send(null);
+    } catch(error) {
+        console.log(error);
+    }
 }
 
 function getDist() {
@@ -164,6 +197,10 @@ window.onload = () => {
         generateBoard(ps);
         generateTiles();
 
+        document.querySelector(".board-display").onclick = e => {
+            if (!e.target.classList.contains("n-loggedIn") && !e.target.parentElement.classList.contains("n-loggedIn")) window.location = `/game?mode=60000&daily=${day}`;
+        }
+
         if (window.localStorage.loggedIn == "true") document.querySelector(".board-display").classList.add("loggedIn");
         else document.querySelector(".board-display").classList.add("n-loggedIn");
 
@@ -179,10 +216,6 @@ window.onload = () => {
             document.querySelector(".time > .hours").innerText = cHours;
         }, 10)
     })
-}
-
-document.querySelector(".board-display").onclick = e => {
-    if (!e.target.classList.contains("n-loggedIn")) window.location = `/game?mode=60000&daily=1`;
 }
 
 document.querySelector(".button.home").onclick = () => {

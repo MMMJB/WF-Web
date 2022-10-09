@@ -159,12 +159,14 @@ button {
 }
 
 .board-display.n-loggedIn::before {
-    content: "You aren't logged in! Log in to submit a score.";
+    content: "You aren't logged in!\ALog in to submit a score.";
     width: 100%;
     color: white;
     font-family: Raleway, Arial;
     text-align: center;
-    font-size: .75em;
+    font-size: 4vw;
+    white-space: pre-line;
+    line-height: 1;
 }
 
 .tile {
@@ -305,6 +307,7 @@ button {
     content: attr(data-num);
 }
 
+
 @media screen and (orientation: landscape) {
     :root {
         --gap: 6vh;
@@ -337,6 +340,12 @@ button {
     #header > .button:hover {
         box-shadow: none;
         translate: 0px 4px;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .board-display.n-loggedIn::before {
+        font-size: 2vh;
     }
 }
 

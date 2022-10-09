@@ -15,6 +15,10 @@ const BOARD_SIZE = 4;
 var dict, paused = false;
 var trie = new Trie();
 
+const MODE = parseInt(new URLSearchParams(window.location.search).get("mode"))
+const DAILY = new URLSearchParams(window.location.search).get("daily") || false;
+const GAME_LENGTH = DAILY?60000:((MODE!=30000&&MODE!=60000&&MODE!=120000)?30000:MODE);
+
 const game = () => {
 
 const src = "/static/words.txt";
@@ -23,8 +27,6 @@ const container = document.getElementById("game-board");
 
 const MIN_SOLS = 60;
 const NUM_VOWELS = 6;
-const MODE = parseInt(new URLSearchParams(window.location.search).get("mode"))
-const GAME_LENGTH = (MODE!=30000&&MODE!=60000&&MODE!=120000)?30000:MODE;
 
 document.documentElement.style.setProperty("--board-size", BOARD_SIZE);
 
@@ -39,7 +41,23 @@ async function getWords() {
     dict = new Set(dict.filter(d => d.length > 2));
 }
 
-getWords().then(() => dict.forEach(w => trie.insert(w))).then(() => initialize());
+var daily;
+
+getWords().then(() => dict.forEach(w => trie.insert(w))).then(() => {
+    if (!DAILY) initialize();
+    else {
+        async function getDailies() {
+            const d = await fetch("/static/dailies.json").then(r => r.text());
+
+            daily = JSON.parse(d)[DAILY] || undefined;
+        }
+
+        getDailies().then(() => {
+            if (daily) document.body.classList.add("daily");
+            initialize(true, daily);
+        })
+    }
+});
 
 const chars = [/*"aeilorstn"*/"lrstn", "bcdghmp"/*u"*/, "fjkqvwxyz"];
 const vowels = "aeiou".split("");
@@ -282,7 +300,7 @@ function evaluateDir(t1, t2) {
 }
 
 function handleDrag(e) {
-    if (!started) return;
+    if (!started || !e.target) return;
     var target = (e.type == "touchmove")?document.elementFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY):e.target;
     if (target.parentElement) target = target.parentElement;
     else return;
@@ -371,7 +389,7 @@ function handleUp() {
 
         score(str, true);
 
-        checkIfPossible();
+        if (!DAILY) checkIfPossible();
     }
     
     cancel();
@@ -400,7 +418,7 @@ function checkIfPossible() {
 //Animation garbage
 
 function handleRestart() {
-    initialize(false);
+    initialize(false, daily);
     document.getElementById("finish").dataset.high = 0;
     document.querySelector(".score").innerText = sc;
     document.getElementById("finish").classList.add("hidden");
